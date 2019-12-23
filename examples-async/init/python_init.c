@@ -15,14 +15,21 @@ void *threaded_start_scheduler(void *t) {
 }
 
 static PyObject * caml_start_scheduler(PyObject *self, PyObject *args) {
+  PyEval_InitThreads();
   pthread_t thread;
   printf("Starting the scheduler\n");
   int rc = pthread_create(&thread, NULL, threaded_start_scheduler, NULL);
   return Py_None;
 }
 
+static PyObject * caml_release_runtime_lock(PyObject *self, PyObject *args) {
+  caml_release_runtime_system();
+  return Py_None;
+}
+
 static PyMethodDef ocamlmethods[] = {
   {"caml_start_scheduler", caml_start_scheduler, METH_VARARGS, "Starts the async scheduler."},
+  {"caml_release_runtime_lock", caml_release_runtime_lock, METH_VARARGS, "Release the runtime lock."},
   {NULL, NULL, 0, NULL}
 };
 
