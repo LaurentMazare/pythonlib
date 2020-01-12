@@ -17,6 +17,8 @@ print(example_module.make_t("my-t", repeats=3, bar2=2.71828))
 print(example_module.cartesian_product([1, 2], [(3, 4), "5"]))
 
 print(example_module.approx_pi(1000))
+def fn(arg1, arg2): return arg2 * arg1
+print(example_module.callback(fn=fn, arg1=5, arg2="foo"))
 
 toploop.eval('Printf.printf "hello from ocaml\n%!";;')
 ocaml_fn = toploop.get(
