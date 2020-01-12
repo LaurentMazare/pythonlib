@@ -20,8 +20,20 @@ static PyObject * caml_start_scheduler(PyObject *self, PyObject *args) {
   return Py_None;
 }
 
+static PyObject * caml_acquire_runtime_lock(PyObject *self, PyObject *args) {
+  caml_acquire_runtime_system();
+  return Py_None;
+}
+
+static PyObject * caml_release_runtime_lock(PyObject *self, PyObject *args) {
+  caml_release_runtime_system();
+  return Py_None;
+}
+
 static PyMethodDef ocamlmethods[] = {
   {"caml_start_scheduler", caml_start_scheduler, METH_VARARGS, "Starts the async scheduler."},
+  {"caml_acquire_runtime_lock", caml_acquire_runtime_lock, METH_VARARGS, "Acquire the ocaml runtime lock."},
+  {"caml_release_runtime_lock", caml_release_runtime_lock, METH_VARARGS, "Release the ocaml runtime lock."},
   {NULL, NULL, 0, NULL}
 };
 
